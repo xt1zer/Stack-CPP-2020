@@ -32,7 +32,7 @@ public:
 
 	T pop() {
 		if (isEmpty())
-			return INT_MIN;
+			return INT32_MIN;
 
 		T output = top->value;
 		Node<T>* oldTop = top;
@@ -50,7 +50,7 @@ public:
 	T peek(){
 		if (!isEmpty())
 			return top->value;
-		return INT_MIN;
+		return INT32_MIN;
 	}
 
 	void clear() {
