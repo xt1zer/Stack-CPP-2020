@@ -1,72 +1,123 @@
 #pragma once
 #include <limits>
 #include <fstream>
-using std::ofstream;
 
 template <typename T>
 struct Node {
-	T value;
-	Node* next;
+    T value;
+    Node* next;
 
-	Node(T data) : value(data), next(nullptr){}
+    Node(T data) : value(data), next(nullptr) {}
 
-	~Node(){
-		next = nullptr;
-	}
+    ~Node() {
+        next = nullptr;
+    }
 };
 
 template <typename T>
 class Stack {
 private:
-	Node<T>* top = nullptr;
+    Node<T>* m_top;
+
+    void reverse() {
+        Stack<T> temp(*this);
+        clear();
+        while (!temp.isEmpty())
+            push(temp.pop());
+    }
 
 public:
-	typedef Node<T>* Iterator;
+    Stack<T>() : m_top(nullptr) {}
+    Stack<T>(const Stack<T>& copy) {
+        Iterator iter = copy.m_top;
+        while (iter) {
+            push(iter->value);
+            iter = iter->next;
+        }
+    }
 
-	void push(const T& data) {
-		Node<T>* newNode = new Node<T>(data);
-		if (!isEmpty())
-			newNode->next = top;
-		top = newNode;
-	};
+    typedef Node<T>* Iterator;
+    Iterator top() { return m_top; }
 
-	T pop() {
-		if (isEmpty())
-			return INT32_MIN;
+    void push(const T& data) {
+        Node<T>* newNode = new Node<T>(data);
+        if (!isEmpty())
+            newNode->next = m_top;
+        m_top = newNode;
+    };
 
-		T output = top->value;
-		Node<T>* oldTop = top;
+    T pop() {
+        if (isEmpty())
+            return INT32_MIN;
 
-		if (top->next)
-			top = top->next;
-		else
-			top = nullptr;
+        T output = m_top->value;
+        Node<T>* oldTop = m_top;
 
-		delete oldTop;
+        if (m_top->next)
+            m_top = m_top->next;
+        else
+            m_top = nullptr;
 
-		return output;
-	};
+        delete oldTop;
 
-	T peek(){
-		if (!isEmpty())
-			return top->value;
-		return INT32_MIN;
-	}
+        return output;
+    };
 
-	void clear() {
-		while (!isEmpty())
-			pop();
-	};
+    T peek() {
+        if (!isEmpty())
+            return m_top->value;
+        return INT32_MIN;
+    }
 
-	bool isEmpty() {
-		return !top;
-	};
+    void clear() {
+        while (!isEmpty())
+            pop();
+    };
 
-	void save(const char* fileName){
-		ofstream outFile(fileName);
-	};
+    bool isEmpty() {
+        return !m_top;
+    };
 
-	void load(const char* fileName){
+    void save(const char* fileName) {
+        reverse();
+        std::ofstream outFile(fileName);
 
-	};
+        while (!outFile.is_open()) {
+            printf("File didn't open, give me just a bit\n");
+            outFile.open(fileName, std::ios::out);
+        }
+
+        Iterator it = m_top;
+
+        while (it) {
+            outFile << it->value << " ";
+            it = it->next;
+        }
+
+        outFile.close();
+    };
+
+    void load(const char* fileName) {
+        std::ifstream inFile(fileName);
+
+        int i = 0;
+        while (!inFile.is_open()) {
+            if (i > 2) {
+                printf("File failed to open, probably not found, idk\n");
+                return;
+            }
+            printf("File didn't open, give me just a bit\n");
+            inFile.open(fileName, std::ios::in);
+            ++i;
+        }
+
+        if (!isEmpty())
+            clear();
+
+        T data;
+        while (inFile >> data)
+            push(data);
+
+        inFile.close();
+    };
 };
