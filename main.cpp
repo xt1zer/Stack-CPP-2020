@@ -4,16 +4,17 @@ using std::printf;
 
 int main() {
 	Stack<int> s;
-	s.push(2);
-	s.push(5);
-	bool empty = s.isEmpty();
-	int top = s.peek();
-	printf("%d %d\n", empty, top);
+	s.load("stack.txt");
+	Stack<int>::Iterator it = s.top();
+	while (it) {
+		printf("%d\n", it->value);
+		it = it->next;
+	}
 
-	s.clear();
-	empty = s.isEmpty();
-	top = s.peek();
-	printf("%d %d\n", empty, top);
+	//s.clear();
+	//empty = s.isEmpty();
+	//top = s.peek();
+	//printf("%d %d\n", empty, top);
 
 	//int pop = s.pop();
 	//empty = s.isEmpty();
