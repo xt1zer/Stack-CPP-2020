@@ -1,6 +1,7 @@
 #pragma once
 #include <limits>
 #include <fstream>
+#include <iostream>
 
 template <typename T>
 struct Node {
@@ -17,31 +18,31 @@ struct Node {
 template <typename T>
 class Stack {
 private:
-    Node<T>* m_top;
+    Node<T>* m_top = nullptr;
 
     void reverse() {
-        Stack<T> temp(*this);
-        clear();
-        while (!temp.isEmpty())
-            push(temp.pop());
+        Stack<T> temp;
+        while (!isEmpty())
+            temp.push(pop());
+        m_top = temp.m_top;
     }
 
 public:
     Stack<T>() : m_top(nullptr) {}
-    Stack<T>(const Stack<T>& copy) {
-        Iterator iter = copy.m_top;
-        while (iter) {
-            push(iter->value);
-            iter = iter->next;
-        }
-    }
+//    Stack<T>(const Stack<T>& copy) {
+//        Iterator iter = copy.m_top;
+//        while (iter) {
+//            push(iter->value);
+//            iter = iter->next;
+//        }
+//    }
 
     typedef Node<T>* Iterator;
     Iterator top() { return m_top; }
 
     void push(const T& data) {
         Node<T>* newNode = new Node<T>(data);
-        if (!isEmpty())
+//        if (!isEmpty())
             newNode->next = m_top;
         m_top = newNode;
     };
@@ -78,12 +79,12 @@ public:
         return !m_top;
     };
 
-    void save(const char* fileName) {
+    void save(const std::string fileName) {
         reverse();
         std::ofstream outFile(fileName);
 
         while (!outFile.is_open()) {
-            printf("File didn't open, give me just a bit\n");
+            std::cout << "File didn't open, give me just a bit\n";
             outFile.open(fileName, std::ios::out);
         }
 
@@ -95,9 +96,10 @@ public:
         }
 
         outFile.close();
+        std::cout << "Stack saved to file!\n";
     };
 
-    void load(const char* fileName) {
+    void load(const std::string fileName) {
         std::ifstream inFile(fileName);
 
         int i = 0;
@@ -106,7 +108,7 @@ public:
                 printf("File failed to open, probably not found, idk\n");
                 return;
             }
-            printf("File didn't open, give me just a bit\n");
+            std::cout << "File didn't open, give me just a bit\n";
             inFile.open(fileName, std::ios::in);
             ++i;
         }
@@ -119,5 +121,6 @@ public:
             push(data);
 
         inFile.close();
+        std::cout << "Stack created from file!\n";
     };
 };
