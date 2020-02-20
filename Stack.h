@@ -63,7 +63,7 @@ public:
         return output;
     };
 
-    T peek() {
+    T peek() const {
         if (!isEmpty())
             return m_top->value;
         return INT32_MIN;
@@ -74,11 +74,11 @@ public:
             pop();
     };
 
-    bool isEmpty() {
+    bool isEmpty() const {
         return !m_top;
     };
 
-    void save(const std::string fileName) {
+    void save(const std::string fileName) const {
         reverse();
         std::ofstream outFile(fileName);
 
