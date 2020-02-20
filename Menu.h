@@ -1,6 +1,51 @@
 #pragma once
 #include "Stack.h"
 
+void save(Stack<int>& stack, const std::string& fileName) {
+    stack.reverse();
+    std::ofstream outFile(fileName);
+
+    while (!outFile.is_open()) {
+        std::cout << "File didn't open, give me just a bit\n";
+        outFile.open(fileName, std::ios::out);
+    }
+
+    Stack<int>::Iterator it = stack.top();
+
+    while (it) {
+        outFile << it->value << " ";
+        it = it->next;
+    }
+
+    outFile.close();
+    std::cout << "Stack saved to file!\n";
+}
+
+void load(Stack<int>& stack, const std::string fileName) {
+    std::ifstream inFile(fileName);
+
+    int i = 0;
+    while (!inFile.is_open()) {
+        if (i > 2) {
+            std::cout << "File failed to open, probably not found, idk\n";
+            return;
+        }
+        std::cout << "File didn't open, give me just a bit\n";
+        inFile.open(fileName, std::ios::in);
+        ++i;
+    }
+
+    if (!stack.isEmpty())
+        stack.clear();
+
+    int data;
+    while (inFile >> data)
+        stack.push(data);
+
+    inFile.close();
+    std::cout << "Stack created from file!\n";
+}
+
 void choice(const int& c, Stack<int>& stack) {
     system("clear");
 
@@ -45,7 +90,7 @@ void choice(const int& c, Stack<int>& stack) {
         std::string fileName;
         std::cout << "Enter filename: ";
         std::cin >> fileName;
-        stack.save(fileName);
+        save(stack, fileName);
         break;
     }
 
@@ -53,7 +98,7 @@ void choice(const int& c, Stack<int>& stack) {
         std::string fileName;
         std::cout << "Enter filename: ";
         std::cin >> fileName;
-        stack.load(fileName);
+        load(stack, fileName);
         break;
     }
 
