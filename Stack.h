@@ -29,21 +29,21 @@ private:
 
 public:
     Stack<T>() : m_top(nullptr) {}
-//    Stack<T>(const Stack<T>& copy) {
-//        Iterator iter = copy.m_top;
-//        while (iter) {
-//            push(iter->value);
-//            iter = iter->next;
-//        }
-//    }
+    //    Stack<T>(const Stack<T>& copy) {
+    //        Iterator iter = copy.m_top;
+    //        while (iter) {
+    //            push(iter->value);
+    //            iter = iter->next;
+    //        }
+    //    }
 
     typedef Node<T>* Iterator;
     Iterator top() { return m_top; }
 
     void push(const T& data) {
         Node<T>* newNode = new Node<T>(data);
-//        if (!isEmpty())
-            newNode->next = m_top;
+        //        if (!isEmpty())
+        newNode->next = m_top;
         m_top = newNode;
     };
 
@@ -105,7 +105,7 @@ public:
         int i = 0;
         while (!inFile.is_open()) {
             if (i > 2) {
-                printf("File failed to open, probably not found, idk\n");
+                std::cout << "File failed to open, probably not found, idk\n";
                 return;
             }
             std::cout << "File didn't open, give me just a bit\n";

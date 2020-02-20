@@ -7,54 +7,52 @@ void choice(const int &c, Stack<int> &stack) {
 	switch (c) {
 	case 1: {
 		int value;
-		printf("Enter value: ");
-		scanf("%d", &value);
+		std::cout << "Enter value: ";
+		std::cin >> value;
 		stack.push(value);
 		break;
 	}
 
 	case 2: {
 		int value = stack.pop();
-		printf("Popped value %d\n", value);
+		std::cout << "Popped value " << value << std::endl;
 		break;
 	}
 
 	case 3: {
 		if (stack.isEmpty())
-			printf("Stack is empty\n");
+			std::cout << "Stack is empty\n";
 		else
-			printf("Top = %d\n", stack.peek());
+			std::cout << "Top = " << stack.peek() << std::endl;
 		break;
 	}
 
 	case 4: {
 		stack.clear();
-		printf("Stack cleared\n");
+		std::cout << "Stack cleared\n";
 		break;
 	}
 
 	case 5: {
 		if (stack.isEmpty())
-			printf("Stack is empty\n");
+			std::cout << "Stack is empty\n";
 		else
-			printf("Stack is not empty\n");
+			std::cout << "Stack is not empty\n";
 		break;
 	}
 
 	case 6: {
 		std::string fileName;
-		printf("Enter filename: ");
+		std::cout << "Enter filename: ";
 		std::cin >> fileName;
-//		scanf("%s", &fileName);
 		stack.save(fileName);
 		break;
 	}
 
 	case 7: {
 		std::string fileName;
-		printf("Enter filename: ");
+		std::cout << "Enter filename: ";
 		std::cin >> fileName;
-//		scanf("%s", &fileName);
 		stack.load(fileName);
 		break;
 	}
@@ -65,16 +63,16 @@ void choice(const int &c, Stack<int> &stack) {
 void menu(Stack<int> &stack) {
 	int c;
 	while (true) {
-		printf("Options:\n\n");
-		printf("1. Push element\n");
-		printf("2. Pop element\n");
-		printf("3. Get top value\n");
-		printf("4. Clear stack\n");
-		printf("5. Check if empty\n");
-		printf("6. Save to file\n");
-		printf("7. Read from file\n");
+		std::cout << "Options:\n\n";
+		std::cout << "1. Push element\n";
+		std::cout << "2. Pop element\n";
+		std::cout << "3. Get top value\n";
+		std::cout << "4. Clear stack\n";
+		std::cout << "5. Check if empty\n";
+		std::cout << "6. Save to file\n";
+		std::cout << "7. Read from file\n";
 
-		scanf("%d", &c);
+		std::cin >> c;
 
 		choice(c, stack);
 	}
