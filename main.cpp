@@ -1,4 +1,3 @@
-#include "Stack.h"
 #include "Menu.h"
 
 int main() {
