@@ -42,7 +42,6 @@ public:
 
     void push(const T& data) {
         Node<T>* newNode = new Node<T>(data);
-        //        if (!isEmpty())
         newNode->next = m_top;
         m_top = newNode;
     };
