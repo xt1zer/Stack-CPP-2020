@@ -355,3 +355,5 @@ MigrationBackup/
 ## ditto for eclipse
 .cproject
 .project
+.metadata/
+build/
