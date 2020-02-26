@@ -1,10 +1,7 @@
-﻿# CMakeList.txt : CMake project for Stack-CPP-2020, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 2.8.11)
 project(Stack-CPP-2020)
 
-# Add source to this project's executable.
-add_executable (Stack-CPP-2020 "main.cpp" "Stack.h")
+include_directories(src)
 
-# TODO: Add tests and install targets if needed.
+add_subdirectory(src)
+add_subdirectory(test)
