@@ -22,13 +22,6 @@ private:
 
 public:
     Stack<T>() : m_top(nullptr) {}
-    //    Stack<T>(const Stack<T>& copy) {
-    //        Iterator iter = copy.m_top;
-    //        while (iter) {
-    //            push(iter->value);
-    //            iter = iter->next;
-    //        }
-    //    }
 
     typedef Node<T>* Iterator;
     Iterator top() { return m_top; }
@@ -77,49 +70,4 @@ public:
     bool isEmpty() const {
         return !m_top;
     }
-
-    //void save(const std::string fileName) const {
-    //    reverse();
-    //    std::ofstream outFile(fileName);
-
-    //    while (!outFile.is_open()) {
-    //        std::cout << "File didn't open, give me just a bit\n";
-    //        outFile.open(fileName, std::ios::out);
-    //    }
-
-    //    Iterator it = m_top;
-
-    //    while (it) {
-    //        outFile << it->value << " ";
-    //        it = it->next;
-    //    }
-
-    //    outFile.close();
-    //    std::cout << "Stack saved to file!\n";
-    //}
-
-    //void load(const std::string fileName) {
-    //    std::ifstream inFile(fileName);
-
-    //    int i = 0;
-    //    while (!inFile.is_open()) {
-    //        if (i > 2) {
-    //            std::cout << "File failed to open, probably not found, idk\n";
-    //            return;
-    //        }
-    //        std::cout << "File didn't open, give me just a bit\n";
-    //        inFile.open(fileName, std::ios::in);
-    //        ++i;
-    //    }
-
-    //    if (!isEmpty())
-    //        clear();
-
-    //    T data;
-    //    while (inFile >> data)
-    //        push(data);
-
-    //    inFile.close();
-    //    std::cout << "Stack created from file!\n";
-    //}
 };
