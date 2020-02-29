@@ -356,4 +356,5 @@ MigrationBackup/
 .cproject
 .project
 .metadata/
+.settings/
 build/
